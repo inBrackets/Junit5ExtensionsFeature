@@ -1,25 +1,27 @@
-package org.example;
+package org.example.engine;
 
+import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-public class ExtensionA implements ParameterResolver {
+public class EngineExtension implements ParameterResolver {
 
-    private String name;
+    @Getter
+    private Engine engine;
 
-    ExtensionA(String name) {
-        this.name = name;
+    public EngineExtension(int horsepower, String fuelType) {
+        this.engine = new Engine(horsepower, fuelType);
     }
 
     @Override
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-        return parameterContext.getParameter().getType().equals(String.class);
+        return parameterContext.getParameter().getType().equals(Engine.class);
     }
 
     @Override
-    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-        return this.name;
+    public Engine resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+        return this.engine;
     }
 }

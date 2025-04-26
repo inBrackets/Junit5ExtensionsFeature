@@ -1,25 +1,27 @@
-package org.example;
+package org.example.wheel;
 
+import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-public class ExtensionA implements ParameterResolver {
+public class WheelExtension implements ParameterResolver {
 
-    private String name;
+    @Getter
+    private Wheel wheel;
 
-    ExtensionA(String name) {
-        this.name = name;
+    public WheelExtension(int size, String type, float pressure) {
+        this.wheel = new Wheel(size, type, pressure);
     }
 
     @Override
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-        return parameterContext.getParameter().getType().equals(String.class);
+        return parameterContext.getParameter().getType().equals(Wheel.class);
     }
 
     @Override
-    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-        return this.name;
+    public Wheel resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+        return this.wheel;
     }
 }
