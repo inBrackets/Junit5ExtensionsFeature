@@ -1,6 +1,7 @@
 package org.example.car;
 
 import lombok.Getter;
+import org.example.CustomTestExtension;
 import org.example.body.Body;
 import org.example.body.BodyExtension;
 import org.example.engine.Engine;
@@ -12,7 +13,7 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-public class CarExtension implements ParameterResolver {
+public class CarExtension extends CustomTestExtension {
 
     @Getter
     private Car car;
@@ -29,5 +30,11 @@ public class CarExtension implements ParameterResolver {
     @Override
     public Car resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         return this.car;
+    }
+
+
+    @Override
+    public String getExtensionName() {
+        return "CarExtension";
     }
 }

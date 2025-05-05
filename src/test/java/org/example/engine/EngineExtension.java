@@ -1,12 +1,13 @@
 package org.example.engine;
 
 import lombok.Getter;
+import org.example.CustomTestExtension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-public class EngineExtension implements ParameterResolver {
+public class EngineExtension extends CustomTestExtension {
 
     @Getter
     private Engine engine;
@@ -23,5 +24,10 @@ public class EngineExtension implements ParameterResolver {
     @Override
     public Engine resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         return this.engine;
+    }
+
+    @Override
+    public String getExtensionName() {
+        return "EngineExtension";
     }
 }
